@@ -197,25 +197,27 @@ class PostRepositoryImpl(
         }
     }
 
+
     override suspend fun processWork(id: Long) {
+
         try {
             val entity = postWorkDao.getById(id) ?: throw ru.netology.nmedia.error.DbError
+            val post = Post(
+                id = entity.id,
+                authorId = entity.authorId,
+                content = entity.content,
+                likedByMe = entity.likedByMe,
+                authorAvatar = entity.authorAvatar,
+                ownedByMe = true,
+                likes = entity.likes,
+                author = entity.author,
+                published = entity.published
+            )
             if (entity.uri != null) {
                 val upload = MediaUpload(Uri.parse(entity.uri).toFile())
-
-                val post = Post(
-                    id = entity.id,
-                    authorId = entity.authorId,
-                    content = entity.content,
-                    likedByMe = entity.likedByMe,
-                    authorAvatar = entity.authorAvatar,
-                    ownedByMe = true,
-                    likes = entity.likes,
-                    author = entity.author,
-                    published = entity.published
-                )
-
                 saveWithAttachment(post, upload)
+            } else {
+                save(post)
             }
         } catch (e: Exception) {
             throw UnknownError
