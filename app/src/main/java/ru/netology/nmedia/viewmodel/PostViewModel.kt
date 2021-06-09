@@ -138,30 +138,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-
-//    fun save() {
-//        edited.value?.let {
-//            _postCreated.value = Unit
-//            viewModelScope.launch {
-//                try {
-//                    when(_photo.value) {
-//                        noPhoto -> repository.save(it)
-//                        else -> _photo.value?.file?.let { file ->
-//                            repository.saveWithAttachment(it, MediaUpload(file))
-//                        }
-//                    }
-//                    _dataState.value = FeedModelState()
-//                } catch (e: Exception) {
-//                    _dataState.value = FeedModelState(error = true)
-//                }
-//            }
-//        }
-//        edited.value = empty
-//        _photo.value = noPhoto
-//    }
-
-
-
     fun edit(post: Post) {
         edited.value = post
     }
@@ -192,21 +168,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
         edited.value = empty
     }
-
-//    fun removeById(id: Long) {
-//        edited.value?.let {
-//            _postCreated.value = Unit
-//            viewModelScope.launch {
-//                try {
-//                    repository.removeById(id)
-//                    _dataState.value = FeedModelState()
-//                } catch (e: Exception) {
-//                    _dataState.value = FeedModelState(error = true)
-//                }
-//            }
-//        }
-//        edited.value = empty
-//    }
 
     fun removeById(id: Long) {
         viewModelScope.launch {

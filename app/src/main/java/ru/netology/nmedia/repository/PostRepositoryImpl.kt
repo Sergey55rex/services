@@ -117,7 +117,6 @@ class PostRepositoryImpl(
     override suspend fun saveWithAttachment(post: Post, upload: MediaUpload) {
         try {
             val media = upload(upload)
-//             TODO: add support for other types
             val postWithAttachment = post.copy(attachment = Attachment(media.id, AttachmentType.IMAGE))
             save(postWithAttachment)
         } catch (e: AppError) {
@@ -217,7 +216,6 @@ class PostRepositoryImpl(
                 )
 
                 saveWithAttachment(post, upload)
-                //  postWorkDao.removeById(id)
             }
         } catch (e: Exception) {
             throw UnknownError

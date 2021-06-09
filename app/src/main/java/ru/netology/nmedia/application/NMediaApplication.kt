@@ -9,13 +9,6 @@ import kotlinx.coroutines.launch
 import ru.netology.nmedia.auth.AppAuth
 import ru.netology.nmedia.work.RefreshPostsWorker
 
-//class NMediaApplication : Application() {
-//    override fun onCreate() {
-//        super.onCreate()
-//        AppAuth.initApp(this)
-//    }
-//}
-
 class NMediaApplication : Application() {
     private val appScope = CoroutineScope(Dispatchers.Default)
 
@@ -33,7 +26,7 @@ class NMediaApplication : Application() {
 
     private fun setupWork() {
 
-        //Здесь мы иницаилизируем класс воркера, заставляя его запускаться каждую минуту
+
         appScope.launch {
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -44,7 +37,6 @@ class NMediaApplication : Application() {
                 .setConstraints(constraints)
                 .build()
 
-            //запускаем!
             WorkManager.getInstance(this@NMediaApplication).enqueueUniquePeriodicWork(
                 RefreshPostsWorker.name,
                 ExistingPeriodicWorkPolicy.KEEP,
